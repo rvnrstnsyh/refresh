@@ -1,0 +1,50 @@
+{
+	"lock": false,
+	"nodeModulesDir": false,
+	"deploy": { "project": "RE(Fresh)", "exclude": ["**/node_modules"], "include": [], "entrypoint": "src\\main.ts" },
+	"tasks": {
+		"check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+		"cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
+		"manifest": "deno task cli manifest $(pwd)",
+		"dev": "deno run -A --unstable-kv --watch=src/static/,src/routes/ src/dev.ts",
+		"build": "deno run -A --unstable-kv src/dev.ts build",
+		"docker:build": "docker build -t RE(Fresh) .",
+		"deploy": "deno run -A --unstable-kv src/dev.ts build && deployctl deploy --prod --project=RE(Fresh)",
+		"preview": "deno run -A --unstable-kv src/main.ts",
+		"live": "pm2 start ecosystem.config.sh --name RE(Fresh) --instances 1",
+		"update": "deno run -A -r https://fresh.deno.dev/update ."
+	},
+	"compilerOptions": { "types": ["./definition.d.ts"], "jsx": "react-jsx", "jsxImportSource": "preact" },
+	"lint": {
+		"include": ["**/*.ts", "**/*.tsx"],
+		"exclude": ["**/_fresh/*", "**/*.hbs"],
+		"rules": {
+			"tags": ["recommended", "fresh"],
+			"include": ["no-unused-vars", "no-var-requires", "no-explicit-any", "no-extraneous-class", "no-non-null-assertion", "ban-untagged-todo"],
+			"exclude": []
+		}
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 155,
+		"indentWidth": 4,
+		"semiColons": false,
+		"singleQuote": true,
+		"proseWrap": "preserve",
+		"include": ["**/*.ts", "**/*.tsx"],
+		"exclude": ["**/_fresh/*", "**/*.hbs"]
+	},
+	"exclude": ["**/_fresh/*"],
+	"imports": {
+		"$fresh/": "https://deno.land/x/fresh@1.7.1/",
+		"$std/": "https://deno.land/std@0.224.0/",
+		"@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
+		"@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+		"preact": "https://esm.sh/preact@10.19.6",
+		"preact/": "https://esm.sh/preact@10.19.6/",
+		"tailwindcss": "https://esm.sh/tailwindcss@3.4.7",
+		"tailwindcss/plugin": "https://esm.sh/tailwindcss@3.4.7/plugin.js",
+		"ui7": "https://deno.land/x/ui7@v0.2.3/mod.ts",
+		"ulid": "https://deno.land/x/ulid@v0.3.0/mod.ts"
+	}
+}

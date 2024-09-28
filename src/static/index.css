@@ -1,0 +1,241 @@
+/*
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins.
+ */
+@tailwind base;
+
+/*
+  * This injects Tailwind's component classes and any component classes
+  * registered by plugins.
+  */
+@tailwind components;
+
+/*
+  * This injects Tailwind's utility classes and any utility classes registered
+  * by plugins.
+  */
+@tailwind utilities;
+
+/*
+  * Use this directive to control where Tailwind injects the hover, focus,
+  * responsive, dark mode, and other variants of each class.
+  *
+  * If omitted, Tailwind will append these classes to the very end of
+  * your stylesheet by default.
+  */
+@tailwind variants;
+
+/**?
+  *? ----- LIST OF CONTENTS -----
+  *! GLOBAL SECTION -----
+  */
+
+/**!
+  *! GLOBAL SECTION -----
+  /** * Breakpoints
+    *   => @media (max-width: 375px) { ... }  2xs - M
+    *   => @media (max-width: 480px) { ... }   xs - M
+    *   => @media (max-width: 640px) { ... }   sm - M
+    *   => @media (max-width: 768px) { ... }   md - T
+    *   => @media (max-width: 1024px) { ... }  lg - T
+    *   => @media (max-width: 1280px) { ... }  xl - D
+    *   => @media (max-width: 1536px) { ... } 2xl - D
+    */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+@font-face {
+  font-family: "Gilroy Light";
+  src: url("./assets/fonts/gilroy/Gilroy-Light.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gilroy ExtraBold";
+  src: url("./assets/fonts/gilroy/Gilroy-ExtraBold.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Be Vietnam Pro Light";
+  src: url("./assets/fonts/be vietnam pro/BeVietnamPro-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Be Vietnam Pro Medium";
+  src: url("./assets/fonts/be vietnam pro/BeVietnamPro-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* CSS variables for reusablity across all files (including above imported) */
+:root {
+  --primary-color: #000080;
+  --secondary-color: #2a307f;
+  --tertiary-color: #1c274c;
+  --quaternary-color: #363755;
+  --white-color: #ffffff;
+  --gray-color: #f1f1f1;
+  --creamson-color: #fff0de;
+  --dim-color: #f9f9f9;
+  --dim-red-color: #8b0000;
+  --dim-white-color: #ffffffb3;
+  --black-200: #020202;
+  --black-300: #333333;
+  --black-400: #1f1e31;
+  --black-500: #555555;
+  --gray-100: #888888;
+
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  white-space: pre-line;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+::-moz-selection {
+  color: var(--dim-white-color);
+  background: var(--primary-color);
+}
+::selection {
+  color: var(--dim-white-color);
+  background: var(--primary-color);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+body,
+html {
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -ms-overflow-style: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  user-select: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: var(--white-color);
+}
+*:focus {
+  outline: none !important;
+}
+body {
+  margin: 0 auto;
+  background-color: var(--dim-white-color);
+}
+a {
+  @apply text-blue-800
+   underline
+   font-semibold
+   hover:no-underline;
+  font-family: "Be Vietnam Pro Medium", sans-serif;
+}
+a:link,
+a:visited,
+a:active {
+  @apply text-blue-800;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  @apply border-none;
+}
+input[type="checkbox"] {
+  @apply border
+   border-opacity-50
+   focus:outline-none
+   focus:ring-0
+   focus:ring-offset-0;
+}
+h1 {
+  font-size: 90px;
+  font-weight: 400;
+  font-family: "Gilroy Light", sans-serif;
+}
+h2 {
+  font-size: 60px;
+  font-weight: 400;
+  font-family: "Gilroy Light", sans-serif;
+}
+h3 {
+  font-size: 25px;
+  font-weight: 400;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro Medium", sans-serif;
+}
+p {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: "Be Vietnam Pro Light", sans-serif;
+}
+small {
+  font-family: "Be Vietnam Pro Light", sans-serif;
+}
+label {
+  font-size: 16px;
+  font-weight: 600;
+}
+button {
+  @apply underline hover:no-underline;
+  font-family: "Be Vietnam Pro Medium", sans-serif;
+}
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 80px;
+  }
+  h2 {
+    font-size: 60px;
+  }
+}
+@media (max-width: 768px) {
+  h1 {
+    font-size: 70px;
+  }
+  h2 {
+    font-size: 50px;
+  }
+}
+@media (max-width: 640px) {
+  h1 {
+    font-size: 60px;
+  }
+  h2 {
+    font-size: 40px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+  label,
+  p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 50px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+}
+/**!
+  *! END GLOBAL SECTION -----
+  */
