@@ -60,13 +60,13 @@
 }
 @font-face {
   font-family: "Be Vietnam Pro Light";
-  src: url("./assets/fonts/be vietnam pro/BeVietnamPro-Light.ttf") format("truetype");
+  src: url("./assets/fonts/be-vietnam-pro/BeVietnamPro-Light.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Be Vietnam Pro Medium";
-  src: url("./assets/fonts/be vietnam pro/BeVietnamPro-Medium.ttf") format("truetype");
+  src: url("./assets/fonts/be-vietnam-pro/BeVietnamPro-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

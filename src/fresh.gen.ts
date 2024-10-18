@@ -2,8 +2,8 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $_landing_layout from './routes/(landing)/_layout.tsx'
-import * as $_landing_index from './routes/(landing)/index.tsx'
+import * as $_views_layout from './routes/(views)/_layout.tsx'
+import * as $_views_index from './routes/(views)/index.tsx'
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $api_joke from './routes/api/joke.ts'
@@ -14,8 +14,8 @@ import type { Manifest } from '$fresh/server.ts'
 
 const manifest = {
 	routes: {
-		'./routes/(landing)/_layout.tsx': $_landing_layout,
-		'./routes/(landing)/index.tsx': $_landing_index,
+		'./routes/(views)/_layout.tsx': $_views_layout,
+		'./routes/(views)/index.tsx': $_views_index,
 		'./routes/_app.tsx': $_app,
 		'./routes/_middleware.ts': $_middleware,
 		'./routes/api/joke.ts': $api_joke,

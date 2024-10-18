@@ -144,7 +144,7 @@ export default class Middlewares {
 
 			return response
 		} catch (error) {
-			return new Response(`-ERR ws upgrade failed: ${error.message}`, { status: 400 })
+			return new Response(`-ERR ws upgrade failed: ${error instanceof Error ? error.message : String(error)}}`, { status: 400 })
 		}
 	}
 

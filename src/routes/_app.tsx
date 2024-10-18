@@ -13,16 +13,29 @@ export default function App({ Component }: PageProps): JSX.Element {
 			href: '/index.css',
 		},
 		{
+			type: 'text/css',
 			rel: 'stylesheet',
-			type: 'utf-8',
-			href: '/assets/cdn/css/bite.min.css',
+			href: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css',
+			integrity: 'sha512-NSQvA9LCLGdogRtETRB+M8stg/Q+sJBHUjMEESzGzYpW6Gb8lVsMMmIOKszGwiQlaOeavZsKGRxeVr/b7AYSGA==',
+			crossorigin: 'anonymous',
+			referrerpolicy: 'no-referrer',
+		},
+		{
+			type: 'text/css',
+			rel: 'stylesheet',
+			href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
+			integrity: 'sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==',
+			crossorigin: 'anonymous',
+			referrerpolicy: 'no-referrer',
 		},
 	]
-
 	const script: JSX.HTMLAttributes<HTMLScriptElement>[] = [
 		{
 			type: 'text/javascript',
-			src: '/assets/cdn/js/bite.min.js',
+			src: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js',
+			integrity: 'sha512-3OhI+rK9DaQNau/o2HdRre6v1c/6EwMdY965UnYJevchxvO7mVYmp2wz39Igla9aLjpoFr+9IU4NkAeHGg74/A==',
+			crossorigin: 'anonymous',
+			referrerpolicy: 'no-referrer',
 		},
 	]
 

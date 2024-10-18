@@ -2,6 +2,7 @@ import Middlewares from '../helpers/classes/Middlewares.ts'
 
 import { load } from '$std/dotenv/mod.ts'
 import { FreshContext } from '$fresh/server.ts'
+import { sql } from '../helpers/functions/mysql.ts'
 
 const env: Record<string, string> = await load({ envPath: '.env', export: true })
 
@@ -56,14 +57,15 @@ export class AppContext {
 
 		console.log(`System ${env['APP_NAME'] as string} initialization...`)
 		try {
+			await sql.query('SELECT 100 + 100 AS OK')
+			await sql.close()
 			console.log('+OK key and value established')
 			await new Promise((resolve) => setTimeout(resolve, 2000))
 			console.clear()
 			console.log('+OK system ready')
 			this.ready = true
 		} catch (error) {
-			console.error('-ERR', error instanceof Error ? error.message : String(error))
-			throw error // Re-throw to allow caller to handle initialization failure
+			throw error instanceof Error ? error.message.toLowerCase() : String(error) // Re-throw to allow caller to handle initialization failure
 		} finally {
 			console.log('.')
 		}
@@ -111,6 +113,6 @@ export async function handler(request: Request, ctx: FreshContext<SystemState>):
 		// Default fallback
 		return ctx.next()
 	} catch (error) {
-		return new Response(`-ERR internal server error: ${error.message}`, { status: 500 })
+		return new Response(`-ERR internal server error: ${error instanceof Error ? error.message.toLowerCase() : String(error)}`, { status: 500 })
 	}
 }
