@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { FreshContext } from '$fresh/server.ts'
 import { Cookie, setCookie } from '$std/http/cookie.ts'
 
@@ -67,6 +68,44 @@ export default class Http {
 	}
 
 	/**
+	 * @description Validates the payload against the provided schema and returns a strongly typed ServerDataSchema object.
+	 * @param {T} schema - The Zod schema to validate against.
+	 * @param {HttpPayload} payload - The data to be validated.
+	 * @returns {ServerDataSchema} - A strongly typed ServerDataSchema object with the validation result.
+	 */
+	public static validator<T extends z.ZodTypeAny>(schema: T, payload: HttpPayload): ServerDataSchema {
+		const result: z.SafeParseReturnType<T, HttpPayload> = schema.safeParse(payload)
+		if (result.success) {
+			return this.data({
+				success: true,
+				code: 200,
+				type: 'request',
+				message: '+OK all fields are valid',
+				data: { ...payload, ...result.data },
+			})
+		} else {
+			const errors: ServerDataSchema['errors'] = result.error.issues.reduce<ServerDataSchema['errors']>((acc, issue) => {
+				const fieldKey: string = issue.path.join('.')
+				return {
+					...acc,
+					[fieldKey]: {
+						issue: issue.message.toLowerCase(),
+						value: payload[fieldKey],
+					},
+				}
+			}, {})
+
+			return this.data({
+				success: false,
+				code: 400,
+				type: 'error',
+				message: '-ERR validation failed',
+				errors,
+			})
+		}
+	}
+
+	/**
 	 * @description Sends a response based on the provided content type and server data.
 	 * @param {string} contentType - The content type of the response.
 	 * @param {ServerDataSchema} data - The server data to be sent in the response.
@@ -74,12 +113,25 @@ export default class Http {
 	 * @return {Response} A Response object with the appropriate data and status code.
 	 */
 	public static responder(contentType: string, data: ServerDataSchema, pathname: string = '/'): Response {
+		const headers: Headers = new Headers()
 		const responseData: ServerDataSchema = { ...data }
+
 		if (data.success && data.data) responseData.data = data.data
 		if (!data.success && data.errors) responseData.errors = data.errors
 		if (data.feedback) responseData.feedback = data.feedback
+		if (data.success && data.data?.session) {
+			setCookie(headers, {
+				name: 'session',
+				value: data.data.session as string,
+				path: pathname,
+				sameSite: 'Strict' as Cookie['sameSite'],
+				secure: true,
+				httpOnly: true,
+				maxAge: 60 * 60 * 1000 * 24, // 24 hour in this case.
+			})
+			delete data.data.session
+		}
 		if (contentType.includes('application/x-www-form-urlencoded')) {
-			const headers: Headers = new Headers()
 			setCookie(headers, {
 				name: 'data',
 				value: encodeURIComponent(JSON.stringify(responseData)),
@@ -93,6 +145,7 @@ export default class Http {
 			headers.set('X-Purpose', data.type || 'unclear')
 			return new Response(null, { status: 303, headers })
 		}
-		return Response.json(responseData, { status: data.code })
+
+		return Response.json(responseData, { status: data.code, headers })
 	}
 }

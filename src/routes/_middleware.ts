@@ -1,8 +1,10 @@
+import connect from '../helpers/functions/mysql.ts'
 import Middlewares from '../helpers/classes/Middlewares.ts'
+
+import type { Client } from 'mysql'
 
 import { load } from '$std/dotenv/mod.ts'
 import { FreshContext } from '$fresh/server.ts'
-import { sql } from '../helpers/functions/mysql.ts'
 
 const env: Record<string, string> = await load({ envPath: '.env', export: true })
 
@@ -57,9 +59,10 @@ export class AppContext {
 
 		console.log(`System ${env['APP_NAME'] as string} initialization...`)
 		try {
+			const sql: Client = await connect()
 			await sql.query('SELECT 100 + 100 AS OK')
 			await sql.close()
-			console.log('+OK key and value established')
+			console.log('+OK database established')
 			await new Promise((resolve) => setTimeout(resolve, 2000))
 			console.clear()
 			console.log('+OK system ready')

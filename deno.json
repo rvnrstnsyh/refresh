@@ -46,6 +46,7 @@
 		"tailwindcss": "npm:/tailwindcss@3.4.14",
 		"tailwindcss/plugin": "npm:/tailwindcss@3.4.14/plugin.js",
 		"ui7": "https://deno.land/x/ui7@v0.2.3/mod.ts",
-		"ulid": "https://deno.land/x/ulid@v0.3.0/mod.ts"
+		"ulid": "https://deno.land/x/ulid@v0.3.0/mod.ts",
+		"zod": "https://esm.sh/zod@3.23.8"
 	}
 }
